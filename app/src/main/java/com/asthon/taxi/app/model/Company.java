@@ -1,9 +1,11 @@
 package com.asthon.taxi.app.model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -12,10 +14,13 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Company {
+public class Company implements Serializable{
+
+	
+	private static final long serialVersionUID = -5705155101352824315L;
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.IDENTITY) 
 	public Long id;
 	
 	public String name;

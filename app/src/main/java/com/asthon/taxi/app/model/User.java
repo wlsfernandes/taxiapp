@@ -2,11 +2,13 @@ package com.asthon.taxi.app.model;
 
 
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
@@ -15,17 +17,17 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
 @Entity
 @Table(name = "users")
-public class User {
-    @Id
-    @GeneratedValue
+public class User implements Serializable {
+    
+	private static final long serialVersionUID = 6297757512464308211L;
+
+	@Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY) 
     private Long id;
 
     private String username;

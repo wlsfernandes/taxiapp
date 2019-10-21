@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -21,7 +22,7 @@ public class Vehicle implements Serializable {
 	private static final long serialVersionUID = -9194398077163042331L;
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.IDENTITY) 
 	private Long id;
 	
 	@OneToOne

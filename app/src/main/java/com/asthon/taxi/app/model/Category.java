@@ -2,12 +2,11 @@ package com.asthon.taxi.app.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -24,7 +23,7 @@ public class Category implements Serializable {
 	private static final long serialVersionUID = -684507008861549645L;
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.IDENTITY) 
 	private Long id;
 	
 	private String name;

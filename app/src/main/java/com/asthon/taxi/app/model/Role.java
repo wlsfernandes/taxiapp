@@ -1,22 +1,25 @@
 package com.asthon.taxi.app.model;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "roles")
-public class Role {
-    @Id
-    @GeneratedValue
+public class Role implements Serializable {
+    
+	private static final long serialVersionUID = -7806031717153435849L;
+
+	@Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY) 
     private Long id;
 
     private String name;

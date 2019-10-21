@@ -1,12 +1,17 @@
 package com.asthon.taxi.app.model;
 
+import java.io.Serializable;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "authority")
-public class Authority {
+public class Authority implements Serializable {
+
+	private static final long serialVersionUID = 7705811341639781368L;
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY) 
 	private Integer id;
 	
 	@Enumerated(EnumType.STRING)
