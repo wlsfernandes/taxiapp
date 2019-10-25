@@ -31,6 +31,9 @@ public class Vehicle implements Serializable {
 	@OneToOne
 	private Category category;
 	
+	@OneToOne
+	private Driver driver;
+	
 	private String brand;
 	
 	private String model;
@@ -117,13 +120,24 @@ public class Vehicle implements Serializable {
 		this.category = category;
 	}
 
+
+	public Driver getDriver() {
+		return driver;
+	}
+
+	public void setDriver(Driver driver) {
+		this.driver = driver;
+	}
+
 	
-	public Vehicle(Long id, VehicleType vehicleType, Category category, String brand, String model, Integer year,
-			String color, Boolean isActive, LocalDateTime createdAt) {
+	
+	public Vehicle(Long id, VehicleType vehicleType, Category category, Driver driver, String brand, String model,
+			Integer year, String color, Boolean isActive, LocalDateTime createdAt) {
 		super();
 		this.id = id;
 		this.vehicleType = vehicleType;
 		this.category = category;
+		this.driver = driver;
 		this.brand = brand;
 		this.model = model;
 		this.year = year;

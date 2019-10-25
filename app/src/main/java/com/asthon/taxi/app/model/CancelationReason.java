@@ -3,49 +3,49 @@ package com.asthon.taxi.app.model;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
-import com.asthon.taxi.app.model.AuthorityType;
+import lombok.Data;
 
+@Data
 @Entity
-@Table(name = "authority")
-public class Authority implements Serializable {
+public class CancelationReason implements Serializable {
 
-	private static final long serialVersionUID = 7705811341639781368L;
+	private static final long serialVersionUID = -6350236411682553272L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY) 
-	private Integer id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	
-	@Enumerated(EnumType.STRING)
-	private AuthorityType name;
+	private String name;
 
-	public Authority() {
-	}
-
-	public Authority(AuthorityType name) {
-		this.name = name;
-	}
-
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public AuthorityType getName() {
+	public String getName() {
 		return name;
 	}
 
-	public void setName(AuthorityType name) {
+	public void setName(String name) {
 		this.name = name;
+	}
+
+	public CancelationReason(Long id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
+
+	public CancelationReason() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -64,7 +64,7 @@ public class Authority implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Authority other = (Authority) obj;
+		CancelationReason other = (CancelationReason) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -72,7 +72,7 @@ public class Authority implements Serializable {
 			return false;
 		return true;
 	}
-
+	
 	
 	
 	
