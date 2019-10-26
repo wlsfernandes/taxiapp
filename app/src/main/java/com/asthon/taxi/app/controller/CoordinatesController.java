@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -31,7 +32,14 @@ public class CoordinatesController {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Coordinates not found");
 		}
 	}
-
-	
-	
+	/*
+	 * @GetMapping("/api/coordinates/distances") public Double
+	 * getDistanceBetweenCoordinates() { Coordinates initial = new Coordinates();
+	 * initial.setLongitude(33.900567); initial.setLatitude(-84.205685);
+	 * 
+	 * Coordinates target = new Coordinates(); target.setLongitude(34.046485);
+	 * target.setLatitude(-84.086468); return
+	 * coordinatesService.getDistanceBetweenCoordinates(initial, target, ""); }
+	 * 
+	 */	
 }

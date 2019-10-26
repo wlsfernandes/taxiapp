@@ -14,7 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.asthon.taxi.app.exception.TripServiceException;
 import com.asthon.taxi.app.model.Trip;
-import com.asthon.taxi.app.repository.TripService;
+import com.asthon.taxi.app.service.TripService;
 
 @RestController
 public class TripController {

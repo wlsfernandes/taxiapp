@@ -6,9 +6,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.asthon.taxi.app.exception.DriverServiceException;
 import com.asthon.taxi.app.model.Coordinates;
 import com.asthon.taxi.app.model.Driver;
 import com.asthon.taxi.app.model.DriverStatus;
+import com.asthon.taxi.app.model.Trip;
 import com.asthon.taxi.app.repository.DriverRepository;
 
 @Service
@@ -18,48 +20,70 @@ public class DriverService {
 	DriverRepository driverRepository;
 	@Autowired
 	CoordinatesService coordinatesService;
-	
-	public List<Driver> getAllDrivers(){
+
+	public List<Driver> getAllDrivers() {
 		List<Driver> listDrivers = new ArrayList<Driver>();
 		driverRepository.findAll().forEach(listDrivers::add);
 		return listDrivers;
 	}
-	
 
-	public List<Driver> getAllFreeDrivers(){
+	public List<Driver> getAllFreeDrivers() {
 		List<Driver> listDrivers = new ArrayList<Driver>();
 		driverRepository.findByDriverStatus(DriverStatus.FREE).forEach(listDrivers::add);
 		return listDrivers;
 	}
 
-	
 	public Driver getDriverById(Long id) {
 		return driverRepository.findById(id).orElse(null);
 	}
-	
+
 	public Driver getDriverByTag(String tag) {
 		return driverRepository.findByTag(tag);
 	}
-	
+
 	public Driver addDriver(Driver driver) {
 		return driverRepository.save(driver);
 	}
-	
+
 	public Driver updateDriver(Driver driver) {
 		return driverRepository.save(driver);
 	}
-	
+
 	public void removeDriver(Long id) {
 		driverRepository.deleteById(id);
 	}
 
-	public Driver findNearFreeDriver(Coordinates coordinates) {
+	public Driver searchFreeDriver(Trip trip) {
+		Driver driver = new Driver();
+		if (trip.getDriver() == null) {
+			driver = getCloserDriver(trip.getTripStatus().getStartCoordinates());
+			if (driver != null) {
+				return driver;
+			}
+		}
+		return driver;
+	}
+
+	public Driver getCloserDriver(Coordinates coordinates) {
 		List<Driver> listFreeDrivers = new ArrayList<Driver>();
 		listFreeDrivers = getAllFreeDrivers();
-		return getCloserDriver(listFreeDrivers, coordinates);
+		if (listFreeDrivers != null)
+			return findCloserDriver(listFreeDrivers, coordinates);
+		else
+			throw new DriverServiceException("There is no free drive in this moment");
 	}
-		
-	public Driver getCloserDriver(List<Driver> listDrivers, Coordinates coordinates) {
-		return coordinatesService.findCloserDriver(listDrivers,coordinates);
+
+	public Driver findCloserDriver(List<Driver> listDrivers, Coordinates coordinates) {
+		Driver closerDriver = new Driver();
+		Double maxDistance = Double.MAX_VALUE;
+		for (Driver driver : listDrivers) {
+			Double driverDistance = coordinatesService.getDistanceBetweenCoordinates(driver.getCurrentCoordinates(),
+					coordinates, "");
+			if (driverDistance < maxDistance) {
+				maxDistance = driverDistance;
+				closerDriver = driver;
+			}
+		}
+		return closerDriver;
 	}
 }

@@ -20,7 +20,7 @@ public class Coordinates implements Serializable {
 	private Long id;
 	
 	private String nameOfLocation;
-	
+
 	private Double latitude;
 	
 	private Double longitude;
