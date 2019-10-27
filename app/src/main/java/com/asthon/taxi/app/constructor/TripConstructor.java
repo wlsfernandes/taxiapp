@@ -14,8 +14,8 @@ public class TripConstructor {
 	@Autowired
 	DriverConstructor driverConstructor;
 	
-	public Trip setTrip(Trip trip) {
-		trip.setDriver(driverConstructor.setDriverToTrip(trip));
+	public Trip settingUpTrip(Trip trip) {
+		trip.setDriver(driverConstructor.settingUpDriver(trip));
 		trip.setTripAcceptTime(LocalDateTime.now());
 		return trip;
 

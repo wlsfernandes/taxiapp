@@ -42,7 +42,7 @@ public class TripService {
 	}
 
 	public Trip addTrip(Trip trip) {
-		tripConstructor.setTrip(trip);
+		tripConstructor.settingUpTrip(trip);
 		tripRespository.save(trip);
 		return trip;
 	}

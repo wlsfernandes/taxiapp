@@ -14,7 +14,7 @@ public class DriverConstructor {
 	@Autowired
 	DriverService driverService;
 
-	public Driver setDriverToTrip(Trip trip) {
+	public Driver settingUpDriver(Trip trip) {
 		Driver driver = new Driver();
 		driver = driverService.searchFreeDriver(trip);
 		driver.setDriverStatus(DriverStatus.OCCUPIED);
