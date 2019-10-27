@@ -57,14 +57,14 @@ public class DriverService {
 		Driver driver = new Driver();
 		List<Driver> listFreeDrivers = new ArrayList<Driver>();
 		listFreeDrivers = getAllFreeDrivers();
-		if (listFreeDrivers != null) {
+		if (! listFreeDrivers.isEmpty()) {
 			driver = findCloserDriver(listFreeDrivers, trip.getStartCoordinates());
 			if (driver != null)
 				return driver;
 			else
-				throw new DriverServiceException("There is no free drive in this moment");
+				throw new DriverServiceException("There is no free drive at this moment");
 		} else {
-			throw new DriverServiceException("There is no free drive in this moment");
+			throw new DriverServiceException("There is no free drive at this moment");
 		}
 	}
 

@@ -3,14 +3,14 @@ package com.asthon.taxi.app.constructor;
 import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.asthon.taxi.app.model.Trip;
-import com.asthon.taxi.app.service.TripService;
 
+@Component
 public class TripConstructor {
 
-	@Autowired
-	TripService tripService;
+
 	@Autowired
 	DriverConstructor driverConstructor;
 	

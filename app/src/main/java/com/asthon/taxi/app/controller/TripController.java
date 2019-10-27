@@ -58,11 +58,10 @@ public class TripController {
 	public Trip addTrip(@RequestBody Trip trip) {
 		try {
 			return tripService.addTrip(trip);
-		} catch (Exception e) {
-
-			e.printStackTrace();
-			return null;// TODO: handle exception
+		} catch (TripServiceException e) {
+			logger.log(Level.SEVERE, "Error to add a trip");
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error to add a trip");
 		}
 	}
-	
+
 }
