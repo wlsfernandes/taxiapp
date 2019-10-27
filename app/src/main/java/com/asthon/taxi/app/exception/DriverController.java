@@ -40,6 +40,21 @@ public class DriverController {
 		}
 	}
 
+	@GetMapping("/api/freedrivers")
+	public List<Driver> getAllFreeDrivers() {
+		try {
+			List<Driver> listDrivers = new ArrayList<Driver>();
+			listDrivers = driverService.getAllFreeDrivers();
+			if (listDrivers.isEmpty())
+				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Drivers list not found");
+			return listDrivers;
+		} catch (DriverServiceException e) {
+			logger.log(Level.SEVERE, "Error to list Drivers");
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Drivers list not found");
+		}
+	}
+
+	
 	@GetMapping("/api/drivers/{id}")
 	public Driver getDriverById(@PathVariable Long id) {
 		try {

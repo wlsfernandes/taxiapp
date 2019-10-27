@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.asthon.taxi.app.exception.DriverServiceException;
+import com.asthon.taxi.app.constructor.TripConstructor;
 import com.asthon.taxi.app.model.Driver;
 import com.asthon.taxi.app.model.DriverStatus;
 import com.asthon.taxi.app.model.Trip;
@@ -20,7 +20,9 @@ public class TripService {
 	TripRespository tripRespository;
 	@Autowired
 	DriverService driverService;
-
+	@Autowired
+	TripConstructor tripConstructor;
+	
 	public List<Trip> getAllTrips() {
 		List<Trip> listAllTrips = new ArrayList<Trip>();
 		tripRespository.findAll().forEach(listAllTrips::add);
@@ -40,20 +42,16 @@ public class TripService {
 	}
 
 	public Trip addTrip(Trip trip) {
-		if (null == trip.getDriver()) {
-			Driver driver = new Driver();
-			driver = driverService.getCloserDriver(trip.getTripStatus().getStartCoordinates());
-			driver.setDriverStatus(DriverStatus.OCCUPIED);
-			trip.setDriver(driver);
-			return tripRespository.save(trip);
-		} else {
-			// add trip without driver ?!?
-			return null;
-		}
+		tripConstructor.setTrip(trip);
+		tripRespository.save(trip);
+		return trip;
 	}
 
+	
+	
 	public Trip updateTrip(Trip trip) {
 		return tripRespository.save(trip);
 	}
 
+	
 }

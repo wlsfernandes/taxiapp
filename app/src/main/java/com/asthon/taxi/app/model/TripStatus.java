@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.CreationTimestamp;
 
 import lombok.Data;
@@ -22,104 +24,33 @@ public class TripStatus implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@CreationTimestamp
-	private LocalDateTime tripCreatedAt;
-
-	private LocalDateTime tripAcceptTime;
-
-	private LocalDateTime tripStartTime;
-
-	private LocalDateTime tripFinishedAt;
-
-	@OneToOne
-	private Coordinates startCoordinates;
-
-	@OneToOne
-	private Coordinates currentCoordinates;
-
-	@OneToOne
-	private Coordinates endCoordinates;
-
+	
+	private String description;
+	
+	
 	public Long getId() {
 		return id;
 	}
-
+	
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	public LocalDateTime getTripCreatedAt() {
-		return tripCreatedAt;
+	
+	
+	public String getDescription() {
+		return description;
 	}
 
-	public void setTripCreatedAt(LocalDateTime tripCreatedAt) {
-		this.tripCreatedAt = tripCreatedAt;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
-	public LocalDateTime getTripAcceptTime() {
-		return tripAcceptTime;
-	}
 
-	public void setTripAcceptTime(LocalDateTime tripAcceptTime) {
-		this.tripAcceptTime = tripAcceptTime;
-	}
-
-	public LocalDateTime getTripStartTime() {
-		return tripStartTime;
-	}
-
-	public void setTripStartTime(LocalDateTime tripStartTime) {
-		this.tripStartTime = tripStartTime;
-	}
-
-	public LocalDateTime getTripFinishedAt() {
-		return tripFinishedAt;
-	}
-
-	public void setTripFinishedAt(LocalDateTime tripFinishedAt) {
-		this.tripFinishedAt = tripFinishedAt;
-	}
-
-	public Coordinates getStartCoordinates() {
-		return startCoordinates;
-	}
-
-	public void setStartCoordinates(Coordinates startCoordinates) {
-		this.startCoordinates = startCoordinates;
-	}
-
-	public Coordinates getCurrentCoordinates() {
-		return currentCoordinates;
-	}
-
-	public void setCurrentCoordinates(Coordinates currentCoordinates) {
-		this.currentCoordinates = currentCoordinates;
-	}
-
-	public Coordinates getEndCoordinates() {
-		return endCoordinates;
-	}
-
-	public void setEndCoordinates(Coordinates endCoordinates) {
-		this.endCoordinates = endCoordinates;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-	public TripStatus(Long id, LocalDateTime tripCreatedAt, LocalDateTime tripAcceptTime, LocalDateTime tripStartTime,
-			LocalDateTime tripFinishedAt, Coordinates startCoordinates, Coordinates currentCoordinates,
-			Coordinates endCoordinates) {
+	
+	public TripStatus(Long id, String description) {
 		super();
 		this.id = id;
-		this.tripCreatedAt = tripCreatedAt;
-		this.tripAcceptTime = tripAcceptTime;
-		this.tripStartTime = tripStartTime;
-		this.tripFinishedAt = tripFinishedAt;
-		this.startCoordinates = startCoordinates;
-		this.currentCoordinates = currentCoordinates;
-		this.endCoordinates = endCoordinates;
+		this.description = description;
 	}
 
 	public TripStatus() {

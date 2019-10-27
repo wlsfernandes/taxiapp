@@ -14,6 +14,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.CreationTimestamp;
 
 import lombok.Data;
@@ -31,9 +33,10 @@ public class Driver implements Serializable {
 
 	private String tag;
 	
+	@Cascade(CascadeType.SAVE_UPDATE)
 	@OneToOne
 	private User user;
-	
+	@Cascade(CascadeType.ALL)
 	@OneToMany
 	private List<Vehicle> vehicles;
 	
@@ -52,7 +55,9 @@ public class Driver implements Serializable {
 	private LocalDateTime createAt;
 	
 	private LocalDateTime lastLoginAt;
-
+	
+	@OneToOne
+	@Cascade(CascadeType.ALL)
 	private Coordinates currentCoordinates;
 	
 	

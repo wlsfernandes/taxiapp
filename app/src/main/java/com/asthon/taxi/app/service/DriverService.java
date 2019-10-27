@@ -29,7 +29,7 @@ public class DriverService {
 
 	public List<Driver> getAllFreeDrivers() {
 		List<Driver> listDrivers = new ArrayList<Driver>();
-		driverRepository.findByDriverStatus(DriverStatus.FREE).forEach(listDrivers::add);
+		driverRepository.findByIsActiveTrueAndIsOnlineTrueAndDriverStatus(DriverStatus.FREE).forEach(listDrivers::add);
 		return listDrivers;
 	}
 
@@ -55,22 +55,17 @@ public class DriverService {
 
 	public Driver searchFreeDriver(Trip trip) {
 		Driver driver = new Driver();
-		if (trip.getDriver() == null) {
-			driver = getCloserDriver(trip.getTripStatus().getStartCoordinates());
-			if (driver != null) {
-				return driver;
-			}
-		}
-		return driver;
-	}
-
-	public Driver getCloserDriver(Coordinates coordinates) {
 		List<Driver> listFreeDrivers = new ArrayList<Driver>();
 		listFreeDrivers = getAllFreeDrivers();
-		if (listFreeDrivers != null)
-			return findCloserDriver(listFreeDrivers, coordinates);
-		else
+		if (listFreeDrivers != null) {
+			driver = findCloserDriver(listFreeDrivers, trip.getStartCoordinates());
+			if (driver != null)
+				return driver;
+			else
+				throw new DriverServiceException("There is no free drive in this moment");
+		} else {
 			throw new DriverServiceException("There is no free drive in this moment");
+		}
 	}
 
 	public Driver findCloserDriver(List<Driver> listDrivers, Coordinates coordinates) {
@@ -84,6 +79,20 @@ public class DriverService {
 				closerDriver = driver;
 			}
 		}
+		if (sendJobToDriver(closerDriver) == true) {
+			return closerDriver;
+		} else {
+			listDrivers.remove(closerDriver);
+			findCloserDriver(listDrivers, coordinates);
+		}
 		return closerDriver;
 	}
+
+	public Boolean sendJobToDriver(Driver driver) {
+		// send job to driver
+		// send email
+		// send sms
+		return true;
+	}
+
 }

@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.CreationTimestamp;
 
 import lombok.Data;
@@ -25,15 +27,35 @@ public class Trip implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@Cascade(CascadeType.SAVE_UPDATE)
 	@OneToOne
 	private Driver driver;
+	@Cascade(CascadeType.SAVE_UPDATE)
 	@OneToOne
 	private User user;
 	@OneToOne
+	@Cascade(CascadeType.ALL)
 	private TripStatus tripStatus;
-		
 	@OneToOne
 	private CancelationReason cancelationReason;
+	
+	@CreationTimestamp
+	private LocalDateTime tripCreatedAt;
+
+	private LocalDateTime tripAcceptTime;
+
+	private LocalDateTime tripStartTime;
+
+	private LocalDateTime tripFinishedAt;
+	@OneToOne
+	@Cascade(CascadeType.ALL)
+	private Coordinates startCoordinates;
+	@OneToOne
+	@Cascade(CascadeType.ALL)
+	private Coordinates currentCoordinates;
+	@OneToOne
+	@Cascade(CascadeType.ALL)
+	private Coordinates endCoordinates;
 	
 	private Double expectedfare;
 	
@@ -51,11 +73,6 @@ public class Trip implements Serializable {
 	
 	private Double driverRating;
 
-	
-	
-	
-		
-	
 	public Long getId() {
 		return id;
 	}
@@ -94,6 +111,62 @@ public class Trip implements Serializable {
 
 	public void setCancelationReason(CancelationReason cancelationReason) {
 		this.cancelationReason = cancelationReason;
+	}
+
+	public LocalDateTime getTripCreatedAt() {
+		return tripCreatedAt;
+	}
+
+	public void setTripCreatedAt(LocalDateTime tripCreatedAt) {
+		this.tripCreatedAt = tripCreatedAt;
+	}
+
+	public LocalDateTime getTripAcceptTime() {
+		return tripAcceptTime;
+	}
+
+	public void setTripAcceptTime(LocalDateTime tripAcceptTime) {
+		this.tripAcceptTime = tripAcceptTime;
+	}
+
+	public LocalDateTime getTripStartTime() {
+		return tripStartTime;
+	}
+
+	public void setTripStartTime(LocalDateTime tripStartTime) {
+		this.tripStartTime = tripStartTime;
+	}
+
+	public LocalDateTime getTripFinishedAt() {
+		return tripFinishedAt;
+	}
+
+	public void setTripFinishedAt(LocalDateTime tripFinishedAt) {
+		this.tripFinishedAt = tripFinishedAt;
+	}
+
+	public Coordinates getStartCoordinates() {
+		return startCoordinates;
+	}
+
+	public void setStartCoordinates(Coordinates startCoordinates) {
+		this.startCoordinates = startCoordinates;
+	}
+
+	public Coordinates getCurrentCoordinates() {
+		return currentCoordinates;
+	}
+
+	public void setCurrentCoordinates(Coordinates currentCoordinates) {
+		this.currentCoordinates = currentCoordinates;
+	}
+
+	public Coordinates getEndCoordinates() {
+		return endCoordinates;
+	}
+
+	public void setEndCoordinates(Coordinates endCoordinates) {
+		this.endCoordinates = endCoordinates;
 	}
 
 	public Double getExpectedfare() {
@@ -160,16 +233,25 @@ public class Trip implements Serializable {
 		this.driverRating = driverRating;
 	}
 
-	
 	public Trip(Long id, Driver driver, User user, TripStatus tripStatus, CancelationReason cancelationReason,
-			Double expectedfare, Double expectedDistance, Integer expectedDuration, Double totalDistanceKm,
-			Double totalDistanceMile, LocalTime totalDurationTime, Double totalFare, Double driverRating) {
+			LocalDateTime tripCreatedAt, LocalDateTime tripAcceptTime, LocalDateTime tripStartTime,
+			LocalDateTime tripFinishedAt, Coordinates startCoordinates, Coordinates currentCoordinates,
+			Coordinates endCoordinates, Double expectedfare, Double expectedDistance, Integer expectedDuration,
+			Double totalDistanceKm, Double totalDistanceMile, LocalTime totalDurationTime, Double totalFare,
+			Double driverRating) {
 		super();
 		this.id = id;
 		this.driver = driver;
 		this.user = user;
 		this.tripStatus = tripStatus;
 		this.cancelationReason = cancelationReason;
+		this.tripCreatedAt = tripCreatedAt;
+		this.tripAcceptTime = tripAcceptTime;
+		this.tripStartTime = tripStartTime;
+		this.tripFinishedAt = tripFinishedAt;
+		this.startCoordinates = startCoordinates;
+		this.currentCoordinates = currentCoordinates;
+		this.endCoordinates = endCoordinates;
 		this.expectedfare = expectedfare;
 		this.expectedDistance = expectedDistance;
 		this.expectedDuration = expectedDuration;
@@ -182,6 +264,7 @@ public class Trip implements Serializable {
 
 	public Trip() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -208,9 +291,11 @@ public class Trip implements Serializable {
 			return false;
 		return true;
 	}
-	
 
 	
-
+	
+	
+		
+	
 
 }

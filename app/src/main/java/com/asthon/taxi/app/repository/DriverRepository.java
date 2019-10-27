@@ -9,7 +9,7 @@ public interface DriverRepository extends CrudRepository<Driver, Long>{
 
 	Driver findByTag(String tag);
 
-	Iterable<Driver> findByDriverStatus(DriverStatus driverStatus);
+	Iterable<Driver> findByIsActiveTrueAndIsOnlineTrueAndDriverStatus(DriverStatus free);
 	
 	
 
