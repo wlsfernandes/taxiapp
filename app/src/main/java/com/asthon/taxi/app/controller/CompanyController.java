@@ -17,14 +17,18 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.asthon.taxi.app.exception.CompanyServiceException;
+import com.asthon.taxi.app.model.Router;
 import com.asthon.taxi.app.model.Company;
+import com.asthon.taxi.app.model.Route;
 import com.asthon.taxi.app.service.CompanyService;
+import com.asthon.taxi.app.service.MapQuestService;
 
 @RestController
 public class CompanyController {
 	@Autowired
 	CompanyService companyService;
-	
+	@Autowired
+	MapQuestService mapQuestService;
 
 	Logger logger = Logger.getLogger(Company.class.getName());
 
@@ -38,8 +42,13 @@ public class CompanyController {
 			return listCompanies;
 		} catch (CompanyServiceException e) {
 			logger.log(Level.SEVERE, "Error 2901 - error list companies");
-			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,"Error 2901");
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error 2901");
 		}
+	}
+
+	@GetMapping("/api/map")
+	public Router test() {
+		return mapQuestService.test(null,null);
 	}
 
 	@GetMapping("/api/companies/{id}")
@@ -54,7 +63,7 @@ public class CompanyController {
 			logger.log(Level.SEVERE, "Error getOne Company " + id);
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error 2902");
 		}
-		
+
 	}
 
 	@DeleteMapping("/api/companies/{id}")
@@ -62,30 +71,30 @@ public class CompanyController {
 		try {
 			companyService.deleteCompany(id);
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, "error to delete company"+ id);
+			logger.log(Level.SEVERE, "error to delete company" + id);
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@PostMapping("/api/companies")
 	public Company add(@RequestBody Company company) {
-		
+
 		try {
 			return companyService.add(company);
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "error to persist Company");
-			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,"Error 2903");
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error 2903");
 		}
-		
+
 	}
-	
+
 	@PutMapping("/api/companies")
 	public Company update(@RequestBody Company company) {
 		try {
 			return companyService.updateCompany(company);
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "Error to update Company");
-			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,"Error 2904");
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error 2904");
 		}
 	}
 }
