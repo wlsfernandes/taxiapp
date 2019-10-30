@@ -1,7 +1,12 @@
-package com.asthon.taxi.app.model;
+package com.asthon.taxi.app.maps.model;
 
-public class BoundingBox {
-	  Lr LrObject;
+import java.io.Serializable;
+
+public class BoundingBox implements Serializable {
+
+	private static final long serialVersionUID = -5079705255944409024L;
+	
+      Lr LrObject;
 	  Ul UlObject;
 
 

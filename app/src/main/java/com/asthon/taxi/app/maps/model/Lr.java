@@ -1,7 +1,12 @@
-package com.asthon.taxi.app.model;
+package com.asthon.taxi.app.maps.model;
 
-public class Lr {
-	  private float lng;
+import java.io.Serializable;
+
+public class Lr implements Serializable {
+	
+	private static final long serialVersionUID = 1305761480847056947L;
+
+	private float lng;
 	  private float lat;
 
 

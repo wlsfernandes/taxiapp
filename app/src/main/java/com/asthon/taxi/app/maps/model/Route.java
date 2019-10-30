@@ -1,10 +1,8 @@
-package com.asthon.taxi.app.model;
+package com.asthon.taxi.app.maps.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-
 
 public class Route implements Serializable {
   
@@ -13,7 +11,7 @@ public class Route implements Serializable {
   private boolean hasTollRoad;
   private boolean hasBridge;
   BoundingBox BoundingBoxObject;
-  private float distance;
+  private Double distance;
   private boolean hasTimedRestriction;
   private boolean hasTunnel;
   private boolean hasHighway;
@@ -50,10 +48,10 @@ public BoundingBox getBoundingBoxObject() {
 public void setBoundingBoxObject(BoundingBox boundingBoxObject) {
 	BoundingBoxObject = boundingBoxObject;
 }
-public float getDistance() {
+public Double getDistance() {
 	return distance;
 }
-public void setDistance(float distance) {
+public void setDistance(Double distance) {
 	this.distance = distance;
 }
 public boolean isHasTimedRestriction() {

@@ -61,7 +61,7 @@ public class Trip implements Serializable {
 	
 	private Double expectedDistance;
 	
-	private Integer expectedDuration;
+	private String expectedDuration;
 	
 	private Double totalDistanceKm;
 	
@@ -185,11 +185,11 @@ public class Trip implements Serializable {
 		this.expectedDistance = expectedDistance;
 	}
 
-	public Integer getExpectedDuration() {
+	public String getExpectedDuration() {
 		return expectedDuration;
 	}
 
-	public void setExpectedDuration(Integer expectedDuration) {
+	public void setExpectedDuration(String expectedDuration) {
 		this.expectedDuration = expectedDuration;
 	}
 
@@ -233,10 +233,11 @@ public class Trip implements Serializable {
 		this.driverRating = driverRating;
 	}
 
+	
 	public Trip(Long id, Driver driver, User user, TripStatus tripStatus, CancelationReason cancelationReason,
 			LocalDateTime tripCreatedAt, LocalDateTime tripAcceptTime, LocalDateTime tripStartTime,
 			LocalDateTime tripFinishedAt, Coordinates startCoordinates, Coordinates currentCoordinates,
-			Coordinates endCoordinates, Double expectedfare, Double expectedDistance, Integer expectedDuration,
+			Coordinates endCoordinates, Double expectedfare, Double expectedDistance, String expectedDuration,
 			Double totalDistanceKm, Double totalDistanceMile, LocalTime totalDurationTime, Double totalFare,
 			Double driverRating) {
 		super();

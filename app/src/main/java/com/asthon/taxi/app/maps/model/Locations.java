@@ -1,7 +1,11 @@
-package com.asthon.taxi.app.model;
+package com.asthon.taxi.app.maps.model;
 
-public class Locations {
+import java.io.Serializable;
 
+public class Locations implements Serializable {
+
+	 private static final long serialVersionUID = -1514907189369507294L;
+	 
 	 private boolean dragPoint;
 	 DisplayLatLng displayLatLng;
 	 private String adminArea4;

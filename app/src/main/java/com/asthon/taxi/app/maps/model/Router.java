@@ -1,4 +1,4 @@
-package com.asthon.taxi.app.model;
+package com.asthon.taxi.app.maps.model;
 
 import java.io.Serializable;
 
