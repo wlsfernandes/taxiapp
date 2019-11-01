@@ -18,6 +18,8 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.asthon.taxi.app.maps.model.LatLng;
+
 import lombok.Data;
 
 @Data
@@ -56,11 +58,7 @@ public class Driver implements Serializable {
 	
 	private LocalDateTime lastLoginAt;
 	
-	@OneToOne
-	@Cascade(CascadeType.ALL)
-	private Coordinates currentCoordinates;
-	
-	
+	private LatLng currentLocation;
 	
 	public Long getId() {
 		return id;
@@ -150,37 +148,19 @@ public class Driver implements Serializable {
 		this.lastLoginAt = lastLoginAt;
 	}
 
-	public Coordinates getCurrentCoordinates() {
-		return currentCoordinates;
+	
+	public LatLng getCurrentLocation() {
+		return currentLocation;
 	}
 
-	public void setCurrentCoordinates(Coordinates currentCoordinates) {
-		this.currentCoordinates = currentCoordinates;
+	public void setCurrentLocation(LatLng currentLocation) {
+		this.currentLocation = currentLocation;
 	}
 
 	public Driver() {
 	}
 
 	
-	
-	public Driver(Long id, String tag, User user, List<Vehicle> vehicles, Boolean isOnline, Boolean isActive,
-			Double rating, Boolean isVerified, DriverStatus driverStatus, LocalDateTime createAt,
-			LocalDateTime lastLoginAt, Coordinates currentCoordinates) {
-		super();
-		this.id = id;
-		this.tag = tag;
-		this.user = user;
-		this.vehicles = vehicles;
-		this.isOnline = isOnline;
-		this.isActive = isActive;
-		this.rating = rating;
-		this.isVerified = isVerified;
-		this.driverStatus = driverStatus;
-		this.createAt = createAt;
-		this.lastLoginAt = lastLoginAt;
-		this.currentCoordinates = currentCoordinates;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;

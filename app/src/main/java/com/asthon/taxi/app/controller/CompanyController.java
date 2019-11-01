@@ -20,14 +20,14 @@ import com.asthon.taxi.app.exception.CompanyServiceException;
 import com.asthon.taxi.app.maps.model.Router;
 import com.asthon.taxi.app.model.Company;
 import com.asthon.taxi.app.service.CompanyService;
-import com.asthon.taxi.app.service.MapQuestService;
+import com.asthon.taxi.app.service.LocationService;
 
 @RestController
 public class CompanyController {
 	@Autowired
 	CompanyService companyService;
 	@Autowired
-	MapQuestService mapQuestService;
+	LocationService locationService;
 
 	Logger logger = Logger.getLogger(Company.class.getName());
 
@@ -45,12 +45,7 @@ public class CompanyController {
 		}
 	}
 
-	@GetMapping("/api/map")
-	public Router test() {
-		return mapQuestService.getTripRouteByAddress("4025,Jimmy Carter Boulevard,Norcross",
-				"4025 , McGinnis Ferry  Rd,Suwanee,GA");
-	}
-
+	
 	@GetMapping("/api/companies/{id}")
 	public Company getOne(@PathVariable Long id) {
 		try {

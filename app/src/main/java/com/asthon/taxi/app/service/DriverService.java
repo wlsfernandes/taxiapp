@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.asthon.taxi.app.exception.DriverServiceException;
-import com.asthon.taxi.app.model.Coordinates;
+import com.asthon.taxi.app.maps.model.LatLng;
 import com.asthon.taxi.app.model.Driver;
 import com.asthon.taxi.app.model.DriverStatus;
 import com.asthon.taxi.app.model.Trip;
@@ -19,7 +19,7 @@ public class DriverService {
 	@Autowired
 	DriverRepository driverRepository;
 	@Autowired
-	CoordinatesService coordinatesService;
+	LocationService locationService;
 
 	public List<Driver> getAllDrivers() {
 		List<Driver> listDrivers = new ArrayList<Driver>();
@@ -57,8 +57,8 @@ public class DriverService {
 		Driver driver = new Driver();
 		List<Driver> listFreeDrivers = new ArrayList<Driver>();
 		listFreeDrivers = getAllFreeDrivers();
-		if (! listFreeDrivers.isEmpty()) {
-			driver = findCloserDriver(listFreeDrivers, trip.getStartCoordinates());
+		if (!listFreeDrivers.isEmpty()) {
+			driver = findCloserDriver(listFreeDrivers, trip.getUser().getLatitudeLongitude());
 			if (driver != null)
 				return driver;
 			else
@@ -68,12 +68,12 @@ public class DriverService {
 		}
 	}
 
-	public Driver findCloserDriver(List<Driver> listDrivers, Coordinates coordinates) {
+	public Driver findCloserDriver(List<Driver> listDrivers, LatLng latitudeLongitude) {
 		Driver closerDriver = new Driver();
 		Double maxDistance = Double.MAX_VALUE;
 		for (Driver driver : listDrivers) {
-			Double driverDistance = coordinatesService.getDistanceBetweenCoordinates(driver.getCurrentCoordinates(),
-					coordinates, "");
+			Double driverDistance = locationService.getDistanceBetweenCoordinates(driver.getCurrentLocation(),
+					latitudeLongitude, "");
 			if (driverDistance < maxDistance) {
 				maxDistance = driverDistance;
 				closerDriver = driver;
@@ -83,7 +83,7 @@ public class DriverService {
 			return closerDriver;
 		} else {
 			listDrivers.remove(closerDriver);
-			findCloserDriver(listDrivers, coordinates);
+			findCloserDriver(listDrivers, latitudeLongitude);
 		}
 		return closerDriver;
 	}

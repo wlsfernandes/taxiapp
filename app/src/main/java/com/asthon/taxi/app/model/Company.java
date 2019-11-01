@@ -35,10 +35,13 @@ public class Company implements Serializable{
 	
 	public Double defaultBasicFare;
 	
+	public Double minimumStartFare;
+	
 	public String hotline;
 	
 	@CreationTimestamp
 	public LocalDateTime createdAt;
+
 
 	public Long getId() {
 		return id;
@@ -96,6 +99,14 @@ public class Company implements Serializable{
 		this.defaultBasicFare = defaultBasicFare;
 	}
 
+	public Double getMinimumStartFare() {
+		return minimumStartFare;
+	}
+
+	public void setMinimumStartFare(Double minimumStartFare) {
+		this.minimumStartFare = minimumStartFare;
+	}
+
 	public String getHotline() {
 		return hotline;
 	}
@@ -113,7 +124,8 @@ public class Company implements Serializable{
 	}
 
 	public Company(Long id, String name, Double fixedFarePerMinute, String termsAndConditions, String companyDetails,
-			Double defaultSearchDistance, Double defaultBasicFare, String hotline, LocalDateTime createdAt) {
+			Double defaultSearchDistance, Double defaultBasicFare, Double minimumStartFare, String hotline,
+			LocalDateTime createdAt) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -122,6 +134,7 @@ public class Company implements Serializable{
 		this.companyDetails = companyDetails;
 		this.defaultSearchDistance = defaultSearchDistance;
 		this.defaultBasicFare = defaultBasicFare;
+		this.minimumStartFare = minimumStartFare;
 		this.hotline = hotline;
 		this.createdAt = createdAt;
 	}

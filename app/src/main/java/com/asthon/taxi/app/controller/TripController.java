@@ -40,7 +40,7 @@ public class TripController {
 		}
 	}
 
-	@GetMapping("/api/trips/user/{phoneNumber}")
+	@GetMapping("/api/trip/user/{phoneNumber}")
 	public Trip findTripByUserPhone(@PathVariable String phoneNumber) {
 		try {
 			Trip trip = new Trip();
@@ -54,7 +54,7 @@ public class TripController {
 		}
 	}
 
-	@PostMapping("/api/trips")
+	@PostMapping("/api/trip")
 	public Trip addTrip(@RequestBody Trip trip) {
 		try {
 			return tripService.addTrip(trip);
@@ -63,5 +63,4 @@ public class TripController {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error to add a trip");
 		}
 	}
-
 }

@@ -3,22 +3,26 @@ package com.asthon.taxi.app.model;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.asthon.taxi.app.maps.model.Route;
+import com.asthon.taxi.app.maps.model.Router;
+
 import lombok.Data;
 
 @Entity
 @Data
+@Table(name="trips")
 public class Trip implements Serializable {
 
 	private static final long serialVersionUID = -6284555259790961390L;
@@ -38,6 +42,8 @@ public class Trip implements Serializable {
 	private TripStatus tripStatus;
 	@OneToOne
 	private CancelationReason cancelationReason;
+	@OneToOne
+	private Route route;
 	
 	@CreationTimestamp
 	private LocalDateTime tripCreatedAt;
@@ -47,15 +53,10 @@ public class Trip implements Serializable {
 	private LocalDateTime tripStartTime;
 
 	private LocalDateTime tripFinishedAt;
-	@OneToOne
-	@Cascade(CascadeType.ALL)
-	private Coordinates startCoordinates;
-	@OneToOne
-	@Cascade(CascadeType.ALL)
-	private Coordinates currentCoordinates;
-	@OneToOne
-	@Cascade(CascadeType.ALL)
-	private Coordinates endCoordinates;
+
+	private String fromAddress;
+
+	private String toAddress;
 	
 	private Double expectedfare;
 	
@@ -73,6 +74,11 @@ public class Trip implements Serializable {
 	
 	private Double driverRating;
 
+	private Float fuelUsed;
+	
+	
+	
+	
 	public Long getId() {
 		return id;
 	}
@@ -113,6 +119,14 @@ public class Trip implements Serializable {
 		this.cancelationReason = cancelationReason;
 	}
 
+	public Route getRoute() {
+		return route;
+	}
+
+	public void setRoute(Route route) {
+		this.route = route;
+	}
+
 	public LocalDateTime getTripCreatedAt() {
 		return tripCreatedAt;
 	}
@@ -145,28 +159,21 @@ public class Trip implements Serializable {
 		this.tripFinishedAt = tripFinishedAt;
 	}
 
-	public Coordinates getStartCoordinates() {
-		return startCoordinates;
+	
+	public String getFromAddress() {
+		return fromAddress;
 	}
 
-	public void setStartCoordinates(Coordinates startCoordinates) {
-		this.startCoordinates = startCoordinates;
+	public void setFromAddress(String fromAddress) {
+		this.fromAddress = fromAddress;
 	}
 
-	public Coordinates getCurrentCoordinates() {
-		return currentCoordinates;
+	public String getToAddress() {
+		return toAddress;
 	}
 
-	public void setCurrentCoordinates(Coordinates currentCoordinates) {
-		this.currentCoordinates = currentCoordinates;
-	}
-
-	public Coordinates getEndCoordinates() {
-		return endCoordinates;
-	}
-
-	public void setEndCoordinates(Coordinates endCoordinates) {
-		this.endCoordinates = endCoordinates;
+	public void setToAddress(String toAddress) {
+		this.toAddress = toAddress;
 	}
 
 	public Double getExpectedfare() {
@@ -233,34 +240,12 @@ public class Trip implements Serializable {
 		this.driverRating = driverRating;
 	}
 
-	
-	public Trip(Long id, Driver driver, User user, TripStatus tripStatus, CancelationReason cancelationReason,
-			LocalDateTime tripCreatedAt, LocalDateTime tripAcceptTime, LocalDateTime tripStartTime,
-			LocalDateTime tripFinishedAt, Coordinates startCoordinates, Coordinates currentCoordinates,
-			Coordinates endCoordinates, Double expectedfare, Double expectedDistance, String expectedDuration,
-			Double totalDistanceKm, Double totalDistanceMile, LocalTime totalDurationTime, Double totalFare,
-			Double driverRating) {
-		super();
-		this.id = id;
-		this.driver = driver;
-		this.user = user;
-		this.tripStatus = tripStatus;
-		this.cancelationReason = cancelationReason;
-		this.tripCreatedAt = tripCreatedAt;
-		this.tripAcceptTime = tripAcceptTime;
-		this.tripStartTime = tripStartTime;
-		this.tripFinishedAt = tripFinishedAt;
-		this.startCoordinates = startCoordinates;
-		this.currentCoordinates = currentCoordinates;
-		this.endCoordinates = endCoordinates;
-		this.expectedfare = expectedfare;
-		this.expectedDistance = expectedDistance;
-		this.expectedDuration = expectedDuration;
-		this.totalDistanceKm = totalDistanceKm;
-		this.totalDistanceMile = totalDistanceMile;
-		this.totalDurationTime = totalDurationTime;
-		this.totalFare = totalFare;
-		this.driverRating = driverRating;
+	public Float getFuelUsed() {
+		return fuelUsed;
+	}
+
+	public void setFuelUsed(Float fuelUsed) {
+		this.fuelUsed = fuelUsed;
 	}
 
 	public Trip() {

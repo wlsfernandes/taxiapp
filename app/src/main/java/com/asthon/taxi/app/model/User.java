@@ -17,6 +17,7 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.asthon.taxi.app.maps.model.LatLng;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
@@ -52,7 +53,9 @@ public class User implements Serializable {
     @ManyToMany
     @JsonIgnoreProperties
     private Set<Role> roles;
-
+    @Transient
+    private LatLng latitudeLongitude;
+    
 
 	public Long getId() {
 		return id;
@@ -162,6 +165,18 @@ public class User implements Serializable {
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
+
+
+	
+	public LatLng getLatitudeLongitude() {
+		return latitudeLongitude;
+	}
+
+
+	public void setLatitudeLongitude(LatLng latitudeLongitude) {
+		this.latitudeLongitude = latitudeLongitude;
+	}
+
 
 	public User() {
 	}
